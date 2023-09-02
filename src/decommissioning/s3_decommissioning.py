@@ -14,10 +14,10 @@ SERVICE_NAME = f"com.amazonaws.{REGION}.s3"
 
 def clients():
     s3 = client("s3", region_name=REGION)
+    s3_resource = resource("s3", region_name=REGION)
     ec2 = client("ec2", region_name=REGION)
-    iam = client("iam", region_name=REGION)
 
-    return {"s3": s3, "iam": iam, "ec2": ec2}
+    return {"s3": s3, "ec2": ec2, "s3_resource": s3_resource}
 
 
 def s3_decommissioning():
@@ -25,7 +25,9 @@ def s3_decommissioning():
 
     ec2: EC2Client = itemgetter("ec2")(clients())
     s3: S3Client = itemgetter("s3")(clients())
+    s3_resource: S3ServiceResource = itemgetter("s3_resource")(clients())
 
+    s3_resource.Bucket(BUCKET_NAME).objects.all().delete()
     s3.delete_bucket(Bucket=BUCKET_NAME)
 
     vpc_endpoint_id = (

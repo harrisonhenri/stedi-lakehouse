@@ -1,4 +1,4 @@
-from boto3 import client, resource
+from boto3 import client
 from src.config import AWS, LAKEHOUSE
 from src.utils.format_aws_http_response import format_aws_http_response
 

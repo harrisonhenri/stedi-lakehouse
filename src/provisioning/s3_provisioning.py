@@ -15,9 +15,8 @@ SERVICE_NAME = f"com.amazonaws.{REGION}.s3"
 def clients():
     s3 = resource("s3", region_name=REGION)
     ec2 = client("ec2", region_name=REGION)
-    iam = client("iam", region_name=REGION)
 
-    return {"s3": s3, "iam": iam, "ec2": ec2}
+    return {"s3": s3, "ec2": ec2}
 
 
 def s3_provisioning():

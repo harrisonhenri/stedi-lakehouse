@@ -10,5 +10,7 @@ def glue_role_decommissioning():
     print("*********Decommissioning Glue Role*********")
 
     iam = client("iam", region_name=REGION)
+    iam.delete_role_policy(RoleName=GLUE_ROLE, PolicyName="S3Access")
+    iam.delete_role_policy(RoleName=GLUE_ROLE, PolicyName="GlueAccess")
 
     format_aws_http_response(iam.delete_role(RoleName=GLUE_ROLE), action="DELETION")
