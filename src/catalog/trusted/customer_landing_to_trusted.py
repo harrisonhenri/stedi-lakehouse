@@ -28,7 +28,7 @@ S3Bucket_node1693580056473 = glueContext.create_dynamic_frame.from_options(
 # Script generated for node Filter
 Filter_node1693580467237 = Filter.apply(
     frame=S3Bucket_node1693580056473,
-    f=lambda row: (not (row["shareWithResearchAsOfDate"] == 0)),
+    f=lambda row: (bool(re.match("[0-9]+", row["shareWithResearchAsOfDate"]))),
     transformation_ctx="Filter_node1693580467237",
 )
 
